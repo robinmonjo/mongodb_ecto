@@ -22,7 +22,7 @@ install:
   - (cd examples/simple; mix deps.get)
 
 before_script:
-  - ${PWD}/mongodb-linux-x86_64-${MONGOVERSION}/bin/mongod --dbpath db --logpath mongodb.log --fork
+  - ${PWD}/mongodb-linux-x86_64-${MONGOVERSION}/bin/mongod --dbpath db --logpath mongodb.log
 
 script:
   - mix test
