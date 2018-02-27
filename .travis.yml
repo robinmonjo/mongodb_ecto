@@ -14,6 +14,7 @@ before_install:
   - wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-${MONGOVERSION}.tgz
   - tar xzf mongodb-linux-x86_64-${MONGOVERSION}.tgz
   - ${PWD}/mongodb-linux-x86_64-${MONGOVERSION}/bin/mongod --version
+  - mkdir db
 
 install:
   - mix local.rebar --force
@@ -22,7 +23,7 @@ install:
   - (cd examples/simple; mix deps.get)
 
 before_script:
-  - ${PWD}/mongodb-linux-x86_64-${MONGOVERSION}/bin/mongod --dbpath db --logpath mongodb.log
+  - ${PWD}/mongodb-linux-x86_64-${MONGOVERSION}/bin/mongod --dbpath db --logpath mongodb.log --fork
 
 script:
   - mix test
