@@ -11,12 +11,9 @@ elixir:
   - 1.5
 
 before_install:
-  - . $HOME/.nvm/nvm.sh
-  - nvm install stable
-  - nvm use stable
-  - npm install -g mongodb-version-manager@1.0.6
-  - m use $MONGOVERSION
-  - mkdir db
+  - wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-${MONGOVERSION}.tgz
+  - tar xzf mongodb-linux-x86_64-${MONGOVERSION}.tgz
+  - ${PWD}/mongodb-linux-x86_64-${MONGOVERSION}/bin/mongod --version
 
 install:
   - mix local.rebar --force
@@ -25,8 +22,7 @@ install:
   - (cd examples/simple; mix deps.get)
 
 before_script:
-  - export PATH=$(m path):$PATH
-  - mongod --fork --logpath mongo.log --dbpath db
+  - ${PWD}/mongodb-linux-x86_64-${MONGOVERSION}/bin/mongod --dbpath db --logpath mongodb.log --fork
 
 script:
   - mix test
